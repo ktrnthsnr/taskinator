@@ -1,13 +1,20 @@
 console.log(window.document);
 
-//add var references to the elements at the tops of the script page
+//-----  variables  ------ // 
 
+// replaced with form specific event allows for submit on button and Enter
+var formEl = document.querySelector("#task-form"); 
+//create a variable to reference the task list ID
+var tasksToDoEl = document.querySelector("#tasks-to-do"); //6. create a variable reference to the task list ID
+//vars to interact with Tasks To Do, Tasks in Progress, and Tasks Completed columns
+var tasksInProgressEl = document.querySelector("#tasks-in-progress");
+var tasksCompletedEl = document.querySelector("#tasks-completed");
 //reference to the page-content element in the <main> element
 var pageContentEl = document.querySelector("#page-content");
-
+//start the counter at 0
 var taskIdCounter = 0;
-var formEl = document.querySelector("#task-form"); // replaced with form specific event allows for submit on button and Enter.
-var tasksToDoEl = document.querySelector("#tasks-to-do"); //6. create a variable reference to the task list ID
+
+//-----  functions  ------ // 
 
 //refactored/cleaned up/combined code
 var taskFormHandler = function(event) {
@@ -179,7 +186,31 @@ var deleteTask = function(taskId) {
         taskSelected.remove();
 };
 
+
+var taskStatusChangeHandler = function(event) {
+        //console.log(event.target);
+        //console.log(event.target.getAttribute("data-task-id"));        
+        // get the task item's id
+        var taskId = event.target.getAttribute("data-task-id");        
+        // get the currently selected option's value and convert to lowercase
+        var statusValue = event.target.value.toLowerCase();        
+        // find the parent task item element based on the id
+        var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");              
+
+        if (statusValue === "to do") {
+                tasksToDoEl.appendChild(taskSelected);
+              } 
+              else if (statusValue === "in progress") {
+                tasksInProgressEl.appendChild(taskSelected);
+              } 
+              else if (statusValue === "completed") {
+                tasksCompletedEl.appendChild(taskSelected);
+              }
+};
+
+//-----  event listeners  ------ // 
+
 //add eventListeners to the bottm of the script page
 formEl.addEventListener("submit", taskFormHandler);
-
 pageContentEl.addEventListener("click", taskButtonHandler);
+pageContentEl.addEventListener("change", taskStatusChangeHandler);
