@@ -50,6 +50,14 @@ var taskFormHandler = function(event) {
       
         createTaskEl(taskDataObj);
       }
+        
+        // // package up data as an object
+        // var taskDataObj = {
+        //   name: taskNameInput,
+        //   type: taskTypeInput
+        // };      
+        // // send it as an argument to createTaskEl
+        // createTaskEl(taskDataObj);
 };
 
 
@@ -115,9 +123,21 @@ var createTaskActions = function(taskId) {
         return actionContainerEl;
 };
 
-var taskButtonHandler = function(event) {        
+var taskButtonHandler = function(event) {
+        // console.log(event.target);
+        
+        // if (event.target.matches(".delete-btn")) {
+        //   // get the element's task id
+        //   var taskId = event.target.getAttribute("data-task-id");
+        //   //check - on the del btn - see console.log for confirmation when selecting the del button
+        //         //console.log(taskId);
+        //   //call the deleteTask function
+        //   deleteTask(taskId);
+        // }  
+        
         // get target element from event
-        var targetEl = event.target;        
+        var targetEl = event.target;
+        
         // edit button was clicked
         if (targetEl.matches(".edit-btn")) {
                 var taskId = targetEl.getAttribute("data-task-id");
