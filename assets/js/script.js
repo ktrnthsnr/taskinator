@@ -1,3 +1,9 @@
+//console.dir(window.document);
+
+//add var references to the elements at the tops of the script page
+
+//reference to the page-content element in the <main> element
+var pageContentEl = document.querySelector("#page-content");
 
 var taskIdCounter = 0;
 var formEl = document.querySelector("#task-form"); // replaced with form specific event allows for submit on button and Enter.
@@ -5,6 +11,9 @@ var tasksToDoEl = document.querySelector("#tasks-to-do"); //6. create a variable
 
 //refactored/cleaned up/combined code
 var taskFormHandler = function(event) {
+        //1st console.log
+        console.log(event.target);
+         
         event.preventDefault();
         var taskNameInput = document.querySelector("input[name='task-name']").value;
         var taskTypeInput = document.querySelector("select[name='task-type']").value;              
@@ -22,7 +31,7 @@ var taskFormHandler = function(event) {
         };      
         // send it as an argument to createTaskEl
         createTaskEl(taskDataObj);
-}
+};
 
 
 var createTaskEl = function(taskDataObj) {
@@ -44,7 +53,7 @@ var createTaskEl = function(taskDataObj) {
         tasksToDoEl.appendChild(listItemEl);              
         // increase task counter for next unique id
         taskIdCounter++;
-      };
+};
 
 
 var createTaskActions = function(taskId) {
@@ -87,8 +96,26 @@ var createTaskActions = function(taskId) {
         return actionContainerEl;
 };
 
+var taskButtonHandler = function(event) {
+        console.log(event.target);
+        
+        if (event.target.matches(".delete-btn")) {
+          // get the element's task id
+          var taskId = event.target.getAttribute("data-task-id");
+          //check - on the del btn - see console.log for confirmation when selecting the del button
+                //console.log(taskId);
+          //call the deleteTask function
+          deleteTask(taskId);
+        }  
+};
 
+var deleteTask = function(taskId) {
+        var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
+        //console.log(taskSelected);
+        taskSelected.remove();
+      };
 
+//add eventListeners to the bottm of the script page
 formEl.addEventListener("submit", taskFormHandler);
 
-
+pageContentEl.addEventListener("click", taskButtonHandler);
