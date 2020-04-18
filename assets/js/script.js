@@ -306,11 +306,20 @@ var saveTasks = function() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-//-----  event listeners  ------ // 
+var loadTasks = function() {    // Lesson 4.5.6.
+        //pseudo code
+        //Gets task items from localStorage
+
+        // Converts tasks from the stringified format back into an array of objects
+
+        // Iterates through tasks array and creates task elements on the page from it        
+}
+
+//-----  event listeners  ------ //
 
 //add eventListeners to the bottm of the script page
-pageContentEl.addEventListener("dragstart", dragTaskHandler); 
 formEl.addEventListener("submit", taskFormHandler);
+pageContentEl.addEventListener("dragstart", dragTaskHandler); 
 pageContentEl.addEventListener("click", taskButtonHandler);
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
 pageContentEl.addEventListener("dragover", dropZoneDragHandler);
