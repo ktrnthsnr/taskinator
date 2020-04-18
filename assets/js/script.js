@@ -77,7 +77,9 @@ var createTaskEl = function(taskDataObj) {
         tasksToDoEl.appendChild(listItemEl);
         //add ID property to the array, adding an id property to the taskDataObj argument and giving it a value of whatever taskIdCounter is at that moment. 
         taskDataObj.id = taskIdCounter;
-        tasks.push(taskDataObj);              
+        tasks.push(taskDataObj);  
+        //add localStorage
+        saveTasks();            
         // increase task counter for next unique id
         taskIdCounter++;
         //to test before adding the array objects
@@ -172,6 +174,8 @@ var completeEditTask = function(taskName, taskType, taskId) {
                         tasks[i].type = taskType;
                         }
                 };
+        //add localStorage
+        saveTasks();   
         taskSelected.querySelector("span.task-type").textContent = taskType;
         alert("Task Updated!");
         formEl.removeAttribute("data-task-id");
@@ -193,6 +197,8 @@ var deleteTask = function(taskId) {
                 }
         // reassign tasks array to be the same as updatedTaskArr
         tasks = updatedTaskArr;
+        //add localStorage
+        saveTasks();   
 };
 
 
@@ -221,6 +227,8 @@ var taskStatusChangeHandler = function(event) {
                 tasks[i].status = statusValue;
                 }
         }
+        //add localStorage
+        saveTasks();   
         console.log(tasks);
 };
 
@@ -277,7 +285,9 @@ var dropTaskHandler = function(event) {
                         if (tasks[i].id === parseInt(id)) {
                         tasks[i].status = statusSelectEl.value.toLowerCase();
                         }
-                }                
+                }
+                //add localStorage
+                saveTasks();                   
                 console.log(tasks);
 };
       
@@ -289,6 +299,12 @@ var dragLeaveHandler = function(event) {
         }
 }
 
+//localStorage function
+var saveTasks = function() {
+    //localStorage.setItem("tasks", tasks);
+    //updated as wrapping tasks in a JSON stringify; to convert task array to string for saving in localStorage
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
 //-----  event listeners  ------ // 
 
